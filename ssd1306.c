@@ -3,13 +3,13 @@
 
 
 
-//é€šè¿‡I2Cå‘SSD1306å†™æ•°æ®
+//Í¨¹ıI2CÏòSSD1306Ğ´Êı¾İ
 void SSD1306_Write_Data(uint8_t data)
 {
 	I2C_WriteByte(SSD1306_DAT_ADDR,data,SSD1306_I2C_ADDR);
 }
 
-//é€šè¿‡I2Cå‘SSD1306å†™å‘½ä»¤
+//Í¨¹ıI2CÏòSSD1306Ğ´ÃüÁî
 void SSD1306_Write_Cmd(uint8_t cmd)
 {
 	I2C_WriteByte(SSD1306_CMD_ADDR,cmd,SSD1306_I2C_ADDR);
@@ -17,7 +17,7 @@ void SSD1306_Write_Cmd(uint8_t cmd)
 
 
 uint8_t OLED[8][128]={0};
-//SSD1306åˆå§‹åŒ–
+//SSD1306³õÊ¼»¯
 void SSD1306_Init(void)
 {
 	delay_ms(200);
@@ -61,56 +61,56 @@ void SSD1306_Init(void)
 	  SSD1306_Write_Cmd(0xAF);//--turn on oled panel
 }
 
-//åæ ‡è®¾ç½®ï¼šä¹Ÿå°±æ˜¯åœ¨å“ªé‡Œæ˜¾ç¤º
+//×ø±êÉèÖÃ£ºÒ²¾ÍÊÇÔÚÄÄÀïÏÔÊ¾
 void OLED_SetPos(uint8_t x, uint8_t y)
 {
-  //ä»¥ä¸‹3ä¸ªå¯„å­˜å™¨åªåœ¨é¡µå¯»å€çš„æ¨¡å¼ä¸‹æœ‰æ•ˆ
-  SSD1306_Write_Cmd(0xb0+y);             //é¡µåœ°å€è®¾ç½®     0xb0~0xb7
-  SSD1306_Write_Cmd(((x&0xf0)>>4)|0x10); //åˆ—é«˜ä½åœ°å€è®¾ç½®
-  SSD1306_Write_Cmd((x&0x0f));           //åˆ—ä½ä½åœ°å€è®¾ç½®
+  //ÒÔÏÂ3¸ö¼Ä´æÆ÷Ö»ÔÚÒ³Ñ°Ö·µÄÄ£Ê½ÏÂÓĞĞ§
+  SSD1306_Write_Cmd(0xb0+y);             //Ò³µØÖ·ÉèÖÃ     0xb0~0xb7
+  SSD1306_Write_Cmd(((x&0xf0)>>4)|0x10); //ÁĞ¸ßÎ»µØÖ·ÉèÖÃ
+  SSD1306_Write_Cmd((x&0x0f));           //ÁĞµÍÎ»µØÖ·ÉèÖÃ
 }
 
-//å¼€å¯OLEDæ˜¾ç¤º
+//¿ªÆôOLEDÏÔÊ¾
 void OLED_DisplayOn(void)
 {
-  SSD1306_Write_Cmd(0X8D);  //SET DCDCå‘½ä»¤
+  SSD1306_Write_Cmd(0X8D);  //SET DCDCÃüÁî
   SSD1306_Write_Cmd(0X14);  //DCDC ON
   SSD1306_Write_Cmd(0XAF);  //DISPLAY ON
 }
 
-//å…³é—­OLEDæ˜¾ç¤º
+//¹Ø±ÕOLEDÏÔÊ¾
 void OLED_DisplayOff(void)
 {
-  SSD1306_Write_Cmd(0X8D);  //SET DCDCå‘½ä»¤
+  SSD1306_Write_Cmd(0X8D);  //SET DCDCÃüÁî
   SSD1306_Write_Cmd(0X10);  //DCDC OFF
   SSD1306_Write_Cmd(0XAE);  //DISPLAY OFF
 }
 
 
 
-//æ¸…å±å‡½æ•°,æ¸…å®Œå±,æ•´ä¸ªå±å¹•æ˜¯é»‘è‰²çš„!å’Œæ²¡ç‚¹äº®ä¸€æ ·
+//ÇåÆÁº¯Êı,ÇåÍêÆÁ,Õû¸öÆÁÄ»ÊÇºÚÉ«µÄ!ºÍÃ»µãÁÁÒ»Ñù
 void OLED_Clear(void)
 {
 	uint8_t i,n;
 
   for(i=0;i<8;i++)
   {
-    SSD1306_Write_Cmd (0xb0+i);    //è®¾ç½®é¡µåœ°å€ï¼ˆ0~7ï¼‰
-    SSD1306_Write_Cmd (0x00);      //è®¾ç½®æ˜¾ç¤ºä½ç½®â€”åˆ—ä½åœ°å€
-    SSD1306_Write_Cmd (0x10);      //è®¾ç½®æ˜¾ç¤ºä½ç½®â€”åˆ—é«˜åœ°å€
+    SSD1306_Write_Cmd (0xb0+i);    //ÉèÖÃÒ³µØÖ·£¨0~7£©
+    SSD1306_Write_Cmd (0x00);      //ÉèÖÃÏÔÊ¾Î»ÖÃ¡ªÁĞµÍµØÖ·
+    SSD1306_Write_Cmd (0x10);      //ÉèÖÃÏÔÊ¾Î»ÖÃ¡ªÁĞ¸ßµØÖ·
     for(n=0;n<128;n++)
       SSD1306_Write_Data(0);
-  } //æ›´æ–°æ˜¾ç¤º
+  } //¸üĞÂÏÔÊ¾
 }
 
-//åœ¨æŒ‡å®šä½ç½®æ˜¾ç¤ºä¸€ä¸ªå­—ç¬¦,åŒ…æ‹¬éƒ¨åˆ†å­—ç¬¦
-//x:0~127ï¼Œy:0~7
-//Char_Size:é€‰æ‹©å­—ä½“ 16/12
+//ÔÚÖ¸¶¨Î»ÖÃÏÔÊ¾Ò»¸ö×Ö·û,°üÀ¨²¿·Ö×Ö·û
+//x:0~127£¬y:0~7
+//Char_Size:Ñ¡Ôñ×ÖÌå 16/12
 void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr,uint8_t Char_Size)
 {
 	uint8_t c=0,i=0;
 
-  c=chr-' ';//å¾—åˆ°åç§»åçš„å€¼
+  c=chr-' ';//µÃµ½Æ«ÒÆºóµÄÖµ
   if(x>MAX_COLUMN-1)
   {
     x=0;
@@ -121,13 +121,13 @@ void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr,uint8_t Char_Size)
     OLED_SetPos(x,y);
     for(i=0;i<8;i++)
     {
-      SSD1306_Write_Data(F8X16[c*16+i]);//å…ˆå†™ä¸ŠåŠéƒ¨åˆ†
+      SSD1306_Write_Data(F8X16[c*16+i]);//ÏÈĞ´ÉÏ°ë²¿·Ö
     }
 
     OLED_SetPos(x,y+1);
     for(i=0;i<8;i++)
     {
-      SSD1306_Write_Data(F8X16[c*16+i+8]);//åå†™ä¸‹åŠéƒ¨åˆ†
+      SSD1306_Write_Data(F8X16[c*16+i+8]);//ºóĞ´ÏÂ°ë²¿·Ö
     }
   }
   else
@@ -140,7 +140,7 @@ void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr,uint8_t Char_Size)
   }
 }
 
-//æ˜¾ç¤ºä¸€ä¸ªå­—ç¬¦ä¸²
+//ÏÔÊ¾Ò»¸ö×Ö·û´®
 void OLED_ShowString(uint8_t x,uint8_t y,char *str,uint8_t Char_Size)
 {
   unsigned char j=0;
@@ -154,13 +154,13 @@ void OLED_ShowString(uint8_t x,uint8_t y,char *str,uint8_t Char_Size)
       x=0;
       y+=2;
     }
-    j++;//ç§»åŠ¨ä¸€æ¬¡å°±æ˜¯ä¸€ä¸ªpageï¼Œå–å€¼0-7
+    j++;//ÒÆ¶¯Ò»´Î¾ÍÊÇÒ»¸öpage£¬È¡Öµ0-7
   }
 }
 
-//æ˜¾ç¤ºæ±‰å­—
-//ç”±äºæ±‰å­—æ˜¯16*16å¤§å°çš„ï¼Œæ‰€ä»¥æœ€å¤šæ˜¾ç¤º4è¡Œæ±‰å­—
-//index:åœ¨æ±‰å­—å–æ¨¡ä¸­çš„ç´¢å¼•
+//ÏÔÊ¾ºº×Ö
+//ÓÉÓÚºº×ÖÊÇ16*16´óĞ¡µÄ£¬ËùÒÔ×î¶àÏÔÊ¾4ĞĞºº×Ö
+//index:ÔÚºº×ÖÈ¡Ä£ÖĞµÄË÷Òı
 void OLED_ShowCN(uint8_t x,uint8_t y,uint8_t index)
 {
 	uint8_t t;
@@ -178,9 +178,9 @@ void OLED_ShowCN(uint8_t x,uint8_t y,uint8_t index)
   }
 }
 
-//æ˜¾ç¤ºæ±‰å­—
-//ç”±äºæ±‰å­—æ˜¯13*12å¤§å°çš„ï¼Œæ‰€ä»¥æœ€å¤šæ˜¾ç¤º5è¡Œæ±‰å­—
-//index:åœ¨æ±‰å­—å–æ¨¡ä¸­çš„ç´¢å¼•
+//ÏÔÊ¾ºº×Ö
+//ÓÉÓÚºº×ÖÊÇ13*12´óĞ¡µÄ£¬ËùÒÔ×î¶àÏÔÊ¾5ĞĞºº×Ö
+//index:ÔÚºº×ÖÈ¡Ä£ÖĞµÄË÷Òı
 void OLED_ShowLCN(uint8_t x,uint8_t y,uint8_t index)
 {
 	uint8_t t;
@@ -199,7 +199,7 @@ void OLED_ShowLCN(uint8_t x,uint8_t y,uint8_t index)
 }
 
 
-//æ˜¾ç¤ºå˜åŒ–æ•°å­—ä¸¥ç¦æ”¹å˜
+//ÏÔÊ¾±ä»¯Êı×ÖÑÏ½û¸Ä±ä
 void OLED_ShowCNU(uint8_t x,uint8_t y,uint8_t index)
 {
 	uint8_t t;
@@ -217,9 +217,9 @@ void OLED_ShowCNU(uint8_t x,uint8_t y,uint8_t index)
   }
 }
 
-//æ˜¾ç¤ºå˜åŒ–çš„æ•°å­—ä¸²
-//integer æ•´æ•°éƒ¨åˆ†
-//decimal å°æ•°éƒ¨åˆ†
+//ÏÔÊ¾±ä»¯µÄÊı×Ö´®
+//integer ÕûÊı²¿·Ö
+//decimal Ğ¡Êı²¿·Ö
 void OLED_ShowCSNU(uint8_t x,uint8_t y,uint8_t integer,uint8_t decimal)
 {
 	uint8_t q,w,e;
@@ -265,13 +265,13 @@ void SSD1306_Show_Change_Char(uint8_t x,uint8_t y,uint8_t chr,uint8_t Char_Size)
 		OLED_SetPos(x,y);
 		    for(i=0;i<8;i++)
 		    {
-		      SSD1306_Write_Data((uint8_t)MCN12X8[c*16+i]);//å…ˆå†™ä¸ŠåŠéƒ¨åˆ†
+		      SSD1306_Write_Data((uint8_t)MCN12X8[c*16+i]);//ÏÈĞ´ÉÏ°ë²¿·Ö
 		    }
 
 		    OLED_SetPos(x,y+1);
 		    for(i=0;i<8;i++)
 		    {
-		      SSD1306_Write_Data((uint8_t)MCN12X8[c*16+i+8]);//åå†™ä¸‹åŠéƒ¨åˆ†
+		      SSD1306_Write_Data((uint8_t)MCN12X8[c*16+i+8]);//ºóĞ´ÏÂ°ë²¿·Ö
 		    }
 	}
 
